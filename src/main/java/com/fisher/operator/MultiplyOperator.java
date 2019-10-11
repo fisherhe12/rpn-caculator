@@ -7,11 +7,11 @@ import java.math.BigDecimal;
  *
  * @author Yu.He
  */
-@Action(value = "/")
-public class DivideOperator extends BinaryOperator {
+@Action(value = "*")
+public class MultiplyOperator extends BinaryOperator {
 	@Override
 	protected BigDecimal doOperation(BigDecimal left, BigDecimal right) {
-		return left.divide(right);
+		return left.multiply(right);
 	}
 }
 
