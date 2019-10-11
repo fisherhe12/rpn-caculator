@@ -46,8 +46,11 @@ public class OperatorRegistry {
 				try {
 					Class<Operator> clazz = (Class<Operator>) Class
 							.forName(operatorClassName, true, ClassLoader.getSystemClassLoader());
+
 					Action operatorAction = clazz.getAnnotation(Action.class);
-					operatorMap.put(operatorAction.value(), clazz.newInstance());
+					if (operatorAction != null) {
+						operatorMap.put(operatorAction.value(), clazz.newInstance());
+					}
 				} catch (Exception e) {
 					LOG.warn("Operator:" + operatorClassName + " load failed");
 				}
