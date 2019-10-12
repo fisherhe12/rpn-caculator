@@ -29,8 +29,12 @@ public class OperatorLoader {
 
 
     public Map<String, Operator> load() {
+        return load(OPERATOR_RESOURCE_LOCATION);
+    }
+
+    public Map<String, Operator> load(String location) {
         Map<String, Operator> operatorMap = new HashMap<>();
-        Properties properties = loadProperties(OPERATOR_RESOURCE_LOCATION);
+        Properties properties = loadProperties(location);
 
         if (properties != null) {
             String operatorsClassName = properties.getProperty(OPERATOR_KEY);
@@ -76,12 +80,6 @@ public class OperatorLoader {
             }
         }
         return props;
-    }
-
-    public static void main(String[] args) {
-        OperatorLoader operatorLoader = new OperatorLoader();
-        Map<String, Operator> load = operatorLoader.load();
-        System.out.println(load.get("+"));
     }
 
 }
