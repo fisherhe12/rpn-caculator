@@ -17,6 +17,7 @@
     <slf4j.version>1.7.25</slf4j.version>
     <guava.version>28.1-jre</guava.version>
     <junit.version>4.12</junit.version>
+    <maven.compiler.version>3.3</maven.compiler.version>
   </properties>
 
   <dependencies>
@@ -52,61 +53,41 @@
   </dependencies>
 
   <build>
+    <finalName>rpn-calculator</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.1</version>
-        <inherited>true</inherited>
+        <version>${maven.compiler.version}</version>
         <configuration>
           <source>${java.version}</source>
           <target>${java.version}</target>
-          <encoding>UTF-8</encoding>
-          <debug>true</debug>
-          <optimize>true</optimize>
-          <showDeprecation>true</showDeprecation>
-          <showWarnings>true</showWarnings>
         </configuration>
       </plugin>
 
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <version>2.5</version>
-        <inherited>true</inherited>
-        <configuration>
-          <includes>
-            <include>**/**.class</include>
-            <include>META-INF/**</include>
-          </includes>
-        </configuration>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
-        <version>2.5.5</version>
         <configuration>
+          <appendAssemblyId>false</appendAssemblyId>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
           <archive>
             <manifest>
               <mainClass>com.fisher.Application</mainClass>
             </manifest>
           </archive>
-          <descriptorRefs>
-            <descriptorRef>jar-with-dependencies</descriptorRef>
-          </descriptorRefs>
         </configuration>
         <executions>
           <execution>
             <id>make-assembly</id>
             <phase>package</phase>
             <goals>
-              <goal>single</goal>
+              <goal>assembly</goal>
             </goals>
           </execution>
         </executions>
       </plugin>
-
     </plugins>
   </build>
 
