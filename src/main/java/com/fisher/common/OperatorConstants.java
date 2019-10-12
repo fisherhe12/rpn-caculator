@@ -1,12 +1,12 @@
 package com.fisher.common;
 
 /**
- * com.fisher.common
- *
- * @author fisher
- * @date 2019-10-12
+ * @author Yu.He
  */
 public class OperatorConstants {
-	public static final int UNARY = 1;
-	public static final int BINARY = 2;
+
+    public static final int DEFAULT_PRECISION = 15;
+    public static final int DEFAULT_FORMAT_PRECISION = 10;
+    public static final int UNARY = 1;
+    public static final int BINARY = 2;
 }

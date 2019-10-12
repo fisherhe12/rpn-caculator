@@ -1,35 +1,28 @@
 package com.fisher;
 
-import com.fisher.exception.EmptyExpressionException;
-import com.fisher.operator.Operator;
-import com.google.common.base.Strings;
-import com.google.common.collect.Maps;
+import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Map;
-import java.util.Scanner;
-
 public class Application {
 
-	private static final Logger log = LoggerFactory.getLogger(Application.class);
-	private static Map<String, Operator> operatorMap = Maps.newHashMap();
+    private static final Logger log = LoggerFactory.getLogger(Application.class);
 
+    public static void main(String[] args) {
 
-	public static void main(String[] args) {
+        log.info("----Welcome to the RPN calculator, please enter your expression.----");
+        Calculator calculator = new Calculator();
 
-		log.info("----Welcome to the RPN calculator, please enter your expression.----");
-
-		Scanner in = new Scanner(System.in);
-		while (in.hasNextLine()) {
-			String text = in.nextLine();
-
-			if (Strings.isNullOrEmpty(text)) {
-				throw new EmptyExpressionException();
-			}
-
-			log.info("output buffer:" + text);
-		}
-	}
-
+        Scanner in = new Scanner(System.in);
+        while (in.hasNextLine()) {
+            String text = in.nextLine();
+            try {
+                String result = calculator.execute(text);
+                //Use log print instead of system.out
+                log.info("output buffer:" + result);
+            } catch (Exception e) {
+                log.warn(e.getMessage());
+            }
+        }
+    }
 }

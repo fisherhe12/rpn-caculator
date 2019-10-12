@@ -41,11 +41,6 @@
       <artifactId>logback-classic</artifactId>
       <version>${logback-classic.version}</version>
     </dependency>
-      <dependency>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-autoconfigure</artifactId>
-          <version>1.5.10.RELEASE</version>
-      </dependency>
 
     <!-- test dependencies-->
     <dependency>

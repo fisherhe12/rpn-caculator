@@ -1,27 +1,37 @@
 package com.fisher.operator;
 
-import com.fisher.exception.InsufficientOperandsException;
+import static com.fisher.common.OperatorConstants.BINARY;
 
+import com.fisher.common.StackUtils;
+import com.fisher.exception.InsufficientOperandsException;
 import java.math.BigDecimal;
 import java.util.Stack;
 
-import static com.fisher.common.OperatorConstants.BINARY;
-
+/**
+ * Base Binary operator class,using template method mode to extract the common logic processing
+ *
+ * @author Yu.He
+ */
 public abstract class BinaryOperator implements Operator {
 
-	public void operate(Stack<BigDecimal> operandStack, int position) {
-		Action operatorAction = this.getClass().getAnnotation(Action.class);
+    @Override
+    public void operate(Stack<BigDecimal> operandStack, Stack<BigDecimal> bufferStack,
+        int position) {
+        Action operatorAction = this.getClass().getAnnotation(Action.class);
 
-		if (operandStack.isEmpty() || operandStack.size() < BINARY) {
-			throw new InsufficientOperandsException(operatorAction.value(), position);
-		}
+        if (operandStack.isEmpty() || operandStack.size() < BINARY) {
+            throw new InsufficientOperandsException(operatorAction.value(), position);
+        }
+        //store the previous operands into bufferStack
+        StackUtils.copy(operandStack, bufferStack);
 
-		BigDecimal right = operandStack.pop();
-		BigDecimal left = operandStack.pop();
+        BigDecimal right = operandStack.pop();
+        BigDecimal left = operandStack.pop();
+        BigDecimal result = doOperate(left, right);
 
-		BigDecimal result = doOperation(left, right);
-		operandStack.push(result);
-	}
+        operandStack.push(result);
+    }
 
-	protected abstract BigDecimal doOperation(BigDecimal left, BigDecimal right);
+    protected abstract BigDecimal doOperate(BigDecimal left, BigDecimal right);
+
 }
